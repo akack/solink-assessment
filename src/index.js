@@ -3,11 +3,23 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Header from './components/Header';
+import { BrowserRouter, Router } from "react-router-dom";
 
+import { InMemoryCache, ApolloClient } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const apolloClient = new ApolloClient({
+  uri: 'https://api.spacex.land/graphql/',
+  cache: new InMemoryCache()
+})
 root.render(
   <React.StrictMode>
-    <App />
+    <ApolloProvider client={apolloClient}>
+      <Header />
+      <App />
+    </ApolloProvider>
   </React.StrictMode>
 );
 
